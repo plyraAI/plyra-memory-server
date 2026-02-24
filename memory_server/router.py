@@ -21,8 +21,11 @@ Routes:
 
 from __future__ import annotations
 
+import logging
 import time
 from contextlib import asynccontextmanager
+
+logger = logging.getLogger(__name__)
 
 from fastapi import Depends, FastAPI, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
@@ -78,18 +81,42 @@ def build_app(config: ServerConfig | None = None) -> FastAPI:
         # Wire LLM extractor if API key provided
         extractor = None
         llm_client = None
-        if config.anthropic_api_key:
-            import anthropic
-            from plyra_memory.extraction.llm import LLMExtractor
 
-            llm_client = anthropic.Anthropic(api_key=config.anthropic_api_key)
-            extractor = LLMExtractor(llm_client)
+        if config.groq_api_key:
+            try:
+                from openai import OpenAI
+                from plyra_memory.extraction.llm import LLMExtractor
+                llm_client = OpenAI(
+                    api_key=config.groq_api_key,
+                    base_url="https://api.groq.com/openai/v1",
+                )
+                extractor = LLMExtractor(llm_client, model="llama-3.1-8b-instant")
+                logger.info("LLM extraction: Groq llama-3.1-8b-instant")
+            except ImportError:
+                logger.warning("GROQ_API_KEY set but openai package not installed")
+
+        elif config.anthropic_api_key:
+            try:
+                import anthropic
+                from plyra_memory.extraction.llm import LLMExtractor
+                llm_client = anthropic.Anthropic(api_key=config.anthropic_api_key)
+                extractor = LLMExtractor(llm_client)
+                logger.info("LLM extraction: Anthropic claude-haiku")
+            except ImportError:
+                logger.warning("ANTHROPIC_API_KEY set but anthropic package not installed")
+
         elif config.openai_api_key:
-            import openai
-            from plyra_memory.extraction.llm import LLMExtractor
+            try:
+                from openai import OpenAI
+                from plyra_memory.extraction.llm import LLMExtractor
+                llm_client = OpenAI(api_key=config.openai_api_key)
+                extractor = LLMExtractor(llm_client)
+                logger.info("LLM extraction: OpenAI gpt-4o-mini")
+            except ImportError:
+                logger.warning("OPENAI_API_KEY set but openai package not installed")
 
-            llm_client = openai.OpenAI(api_key=config.openai_api_key)
-            extractor = LLMExtractor(llm_client)
+        else:
+            logger.info("LLM extraction: disabled (regex fallback). Set GROQ_API_KEY to enable.")
 
         app.state.mem_config = mem_config
         app.state.extractor = extractor
