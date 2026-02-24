@@ -1,0 +1,100 @@
+site_name: plyra-memory-server
+site_url: https://plyraai.github.io/plyra-memory-server
+site_description: Self-hosted memory infrastructure for agentic AI. Multi-tenant, API key auth, workspace isolation.
+site_author: Plyra
+repo_name: plyraAI/plyra-memory-server
+repo_url: https://github.com/plyraAI/plyra-memory-server
+edit_uri: edit/main/docs/
+
+theme:
+  name: material
+  logo: assets/logo.png
+  favicon: assets/logo.png
+  palette:
+    - scheme: slate
+      primary: custom
+      accent: custom
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+    - scheme: default
+      primary: custom
+      accent: custom
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+  font:
+    text: DM Sans
+    code: JetBrains Mono
+  features:
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - navigation.sections
+    - navigation.expand
+    - navigation.top
+    - navigation.footer
+    - search.highlight
+    - search.suggest
+    - content.code.copy
+    - content.code.annotate
+    - toc.follow
+
+extra_css:
+  - stylesheets/extra.css
+
+plugins:
+  - search
+  - minify:
+      minify_html: true
+
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.tabbed:
+      alternate_style: true
+  - tables
+  - attr_list
+  - md_in_html
+  - toc:
+      permalink: true
+
+nav:
+  - Home: index.md
+  - Quickstart: quickstart.md
+  - Configuration: configuration.md
+  - API Reference:
+    - Overview: api/index.md
+    - POST /v1/remember: api/remember.md
+    - POST /v1/recall: api/recall.md
+    - POST /v1/context: api/context.md
+    - GET /v1/stats: api/stats.md
+    - Admin — keys: api/admin.md
+  - Deployment:
+    - Overview: deploy/index.md
+    - Docker: deploy/docker.md
+    - Azure Container Apps: deploy/azure.md
+    - Manual: deploy/manual.md
+  - Guides:
+    - Workspace isolation: guides/isolation.md
+    - API key management: guides/api-keys.md
+    - Postgres migration: guides/postgres.md
+    - LLM extraction: guides/llm-extraction.md
+    - Production checklist: guides/production.md
+  - Changelog: changelog.md
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/plyraAI
+    - icon: fontawesome/brands/x-twitter
+      link: https://x.com/plyraAI
+
+copyright: >
+  Copyright &copy; 2025 Plyra —
+  <a href="https://github.com/plyraAI/plyra-memory-server/blob/main/LICENSE">Apache 2.0</a>
