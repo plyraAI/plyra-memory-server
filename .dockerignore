@@ -1,0 +1,52 @@
+# Git
+.git
+.github
+.gitignore
+
+# Environment variables / Credentials / Keys
+.env
+.env.*
+*.pem
+*.key
+
+# Data / Databases
+*.db
+*.sqlite
+*.sqlite3
+*.db-shm
+*.db-wal
+*.index/
+.plyra/
+
+# Python / Build
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.pytest_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+dist/
+build/
+*.egg-info/
+.eggs/
+.venv/
+venv/
+ENV/
+env/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.claude/
+
+# Logs
+*.log
+
+# Generated Docs
+site/
+docs/

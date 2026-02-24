@@ -25,8 +25,6 @@ import logging
 import time
 from contextlib import asynccontextmanager
 
-logger = logging.getLogger(__name__)
-
 from fastapi import Depends, FastAPI, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -49,6 +47,8 @@ from .models import (
     StatsResponse,
 )
 from .storage.sqlite import SQLiteKeyStore
+
+logger = logging.getLogger(__name__)
 
 
 def build_app(config: ServerConfig | None = None) -> FastAPI:
@@ -103,7 +103,9 @@ def build_app(config: ServerConfig | None = None) -> FastAPI:
                 extractor = LLMExtractor(llm_client)
                 logger.info("LLM extraction: Anthropic claude-haiku")
             except ImportError:
-                logger.warning("ANTHROPIC_API_KEY set but anthropic package not installed")
+                logger.warning(
+                    "ANTHROPIC_API_KEY set but anthropic package not installed"
+                )
 
         elif config.openai_api_key:
             try:
@@ -116,7 +118,9 @@ def build_app(config: ServerConfig | None = None) -> FastAPI:
                 logger.warning("OPENAI_API_KEY set but openai package not installed")
 
         else:
-            logger.info("LLM extraction: disabled (regex fallback). Set GROQ_API_KEY to enable.")
+            logger.info(
+                "LLM extraction: disabled (regex fallback). Set GROQ_API_KEY to enable."
+            )
 
         app.state.mem_config = mem_config
         app.state.extractor = extractor

@@ -14,6 +14,8 @@ RUN uv pip install --system ./plyra_memory_local/*.whl
 
 # Copy project files
 COPY pyproject.toml .
+RUN sed -i '/^\[tool\.uv\.sources\]/,/^$/d' pyproject.toml
+
 COPY README.md .
 COPY memory_server/ ./memory_server/
 
