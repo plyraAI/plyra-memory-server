@@ -4,11 +4,10 @@ services:
     build: .
     ports:
       - "7700:7700"
+    env_file: .env
     environment:
       PLYRA_ENV: production
-      PLYRA_ADMIN_API_KEY: ${PLYRA_ADMIN_API_KEY}
       PLYRA_DATABASE_URL: postgresql://plyra:${POSTGRES_PASSWORD}@postgres:5432/plyra_memory
-      PLYRA_ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY:-}
     depends_on:
       postgres:
         condition: service_healthy
@@ -23,7 +22,7 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U plyra"]
+      test: [ "CMD-SHELL", "pg_isready -U plyra" ]
       interval: 5s
       timeout: 3s
       retries: 5

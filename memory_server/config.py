@@ -35,9 +35,9 @@ class ServerConfig(BaseSettings):
     # database_url: str | None = None
 
     # Optional: LLM for extraction + summarization
-    groq_api_key: str | None = None       # GROQ_API_KEY — fastest, free tier
+    groq_api_key: str | None = None  # GROQ_API_KEY — fastest, free tier
     anthropic_api_key: str | None = None  # ANTHROPIC_API_KEY
-    openai_api_key: str | None = None     # OPENAI_API_KEY
+    openai_api_key: str | None = None  # OPENAI_API_KEY
     # Priority: groq > anthropic > openai > regex fallback
 
     # Rate limiting (requests per minute per API key)

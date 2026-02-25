@@ -86,6 +86,7 @@ def build_app(config: ServerConfig | None = None) -> FastAPI:
             try:
                 from openai import OpenAI
                 from plyra_memory.extraction.llm import LLMExtractor
+
                 llm_client = OpenAI(
                     api_key=config.groq_api_key,
                     base_url="https://api.groq.com/openai/v1",
@@ -99,6 +100,7 @@ def build_app(config: ServerConfig | None = None) -> FastAPI:
             try:
                 import anthropic
                 from plyra_memory.extraction.llm import LLMExtractor
+
                 llm_client = anthropic.Anthropic(api_key=config.anthropic_api_key)
                 extractor = LLMExtractor(llm_client)
                 logger.info("LLM extraction: Anthropic claude-haiku")
@@ -111,6 +113,7 @@ def build_app(config: ServerConfig | None = None) -> FastAPI:
             try:
                 from openai import OpenAI
                 from plyra_memory.extraction.llm import LLMExtractor
+
                 llm_client = OpenAI(api_key=config.openai_api_key)
                 extractor = LLMExtractor(llm_client)
                 logger.info("LLM extraction: OpenAI gpt-4o-mini")

@@ -1,5 +1,20 @@
 # Quickstart
 
+## Option A: Use the hosted server (fastest)
+
+No setup required. Get a free API key at [plyra-keys.vercel.app](https://plyra-keys.vercel.app) — enter your email, get a key instantly.
+
+```bash
+export PLYRA_SERVER_URL=https://plyra-memory-server.politedesert-a99b9eaf.centralindia.azurecontainerapps.io
+export PLYRA_API_KEY=plm_live_...  # from plyra-keys.vercel.app
+```
+
+Then use [plyra-memory](https://plyraai.github.io/plyra-memory) normally — it auto-detects the server URL.
+
+---
+
+## Option B: Self-host with Docker
+
 Server running and accepting memory in 3 commands.
 
 ## Prerequisites
